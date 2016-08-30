@@ -158,6 +158,7 @@ public class Facade {
 			}
 		}
 
+		
 		return jogabilidades;
 
 	}
