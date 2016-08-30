@@ -4,11 +4,14 @@ import excecoes.StringInvalidaException;
 
 public class FactoryUsuario {
 	
-	public Usuario criaNoob(String nome, String login) throws StringInvalidaException {
-		return new Noob(nome, login);
-	}
-	
-	public Usuario criaVeterano(String nome, String login) throws StringInvalidaException {
-		return new Veterano(nome, login);
+	public Usuario criaUsuario(String nome, String login, String tipo) throws StringInvalidaException {
+		Usuario usuario = null;
+		if(tipo.equalsIgnoreCase("noob")){
+			usuario = new Noob(nome, login);
+		}
+		if(tipo.equalsIgnoreCase("veterano")){
+			usuario = new Veterano(nome, login);
+		}
+		return usuario;
 	}
 }

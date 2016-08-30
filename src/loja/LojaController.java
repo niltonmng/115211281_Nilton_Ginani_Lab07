@@ -12,35 +12,41 @@ import excecoes.PrecoInvalidoException;
 import excecoes.StringInvalidaException;
 import excecoes.UpgradeInvalidoException;
 import excecoes.ValorInvalidoException;
+import jogo.FactoryJogo;
 import jogo.Jogabilidade;
 import jogo.Jogo;
 import jogo.Luta;
 import jogo.Plataforma;
 import jogo.Rpg;
+import usuario.FactoryUsuario;
 import usuario.Noob;
 import usuario.Usuario;
 import usuario.Veterano;
 
-public class Facade {
+public class LojaController {
 	public static final String FIM_DE_LINHA = System.lineSeparator();
 	private List<Usuario> meusUsuarios;
 	private HashMap<String, Jogabilidade> mapJogabildades;
+	private FactoryJogo factoryJogo;
+	private FactoryUsuario factoryUsuario;
 
-	public Facade() {
+	public LojaController() {
 		this.meusUsuarios = new ArrayList<Usuario>();
 		this.initializeMap();
+		this.factoryJogo = new FactoryJogo();
+		this.factoryUsuario = new FactoryUsuario();
 	}
 
-	public void adicionaUsuario(String nome, String login) {
+	public void adicionaUsuario(String nome, String login, String tipo) {
 		try {
-			Usuario novoUser = new Noob(nome, login);
+			Usuario novoUser = factoryUsuario.criaUsuario(nome, login, tipo);
 			meusUsuarios.add(novoUser);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
 	}
-
+	
 	public void vendeJogo(String jogoNome, double preco, String jogabilidades, String estiloJogo, String loginUser) {
 
 		try {
@@ -132,17 +138,8 @@ public class Facade {
 
 	private Jogo criaJogo(String jogoNome, double preco, Set<Jogabilidade> tiposJogabilidades, String estiloJogo)
 			throws StringInvalidaException, PrecoInvalidoException {
-
 		String estilo = estiloJogo.toLowerCase();
-		if (estilo.equals("rpg")) {
-			return new Rpg(jogoNome, preco, tiposJogabilidades);
-		} else if (estilo.equals("plataforma")) {
-			return new Plataforma(jogoNome, preco, tiposJogabilidades);
-		} else if (estilo.equals("luta")) {
-			return new Luta(jogoNome, preco, tiposJogabilidades);
-		} else {
-			return null;
-		}
+		return factoryJogo.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
 	}
 
 	private Set<Jogabilidade> createJogabilidades(String names1) {
@@ -174,7 +171,7 @@ public class Facade {
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "loja.Facade", "acceptance_test/us1.txt", "acceptance_test/us2.txt",  "acceptance_test/us3.txt" };
+		args = new String[] { "loja.LojaController", "acceptance_test/us1.txt", "acceptance_test/us2.txt",  "acceptance_test/us3.txt" };
 		EasyAccept.main(args);
 
 	}
