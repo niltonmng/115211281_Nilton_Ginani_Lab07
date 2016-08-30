@@ -97,7 +97,7 @@ public class LojaController {
 		return buscado;
 	}
 
-	public void upgrade(String login) throws Exception {
+	public void upgrade(String login) throws UpgradeInvalidoException {
 		Usuario antigo = this.buscaUsuario(login);
 		if (antigo instanceof Veterano) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
