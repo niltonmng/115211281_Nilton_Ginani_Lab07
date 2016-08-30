@@ -33,8 +33,7 @@ public abstract class Jogo {
 		jogabilidades = new HashSet<Jogabilidade>();
 	}
 
-	public Jogo(String nome, double preco, Set<Jogabilidade> jogabilidades)
-			throws StringInvalidaException, PrecoInvalidoException {
+	public Jogo(String nome, double preco, Set<Jogabilidade> jogabilidades) throws StringInvalidaException, PrecoInvalidoException {
 
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new StringInvalidaException("Nome nao pode ser nulo ou vazio.");

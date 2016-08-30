@@ -3,12 +3,11 @@ package jogo;
 import java.util.Set;
 import excecoes.StringInvalidaException;
 import excecoes.PrecoInvalidoException;
-import excecoes.ValorInvalidoException;
 
 public class FactoryJogo {
 
 	
-	public Jogo criaJogo(String nome, double preco, Set<Jogabilidade> jogabilidades, String tipo) throws StringInvalidaException, PrecoInvalidoException, ValorInvalidoException {
+	public Jogo criaJogo(String nome, double preco, Set<Jogabilidade> jogabilidades, String tipo) throws StringInvalidaException, PrecoInvalidoException {
 		Jogo jogo = null;
 		if(tipo.equalsIgnoreCase("plataforma")){
 			jogo = new Plataforma(nome, preco);
