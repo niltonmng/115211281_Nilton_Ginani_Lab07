@@ -34,6 +34,10 @@ public abstract class Usuario {
 	}
 
 	public abstract void compraJogo(Jogo jogo) throws ValorInvalidoException;
+	
+	public abstract void recompensar(String nomeJogo,int scoreObtido,boolean zerou) throws ValorInvalidoException, StringInvalidaException;
+	
+	public abstract void punir(String nomeJogo, int scoreObtido, boolean zerou) throws ValorInvalidoException, StringInvalidaException;
 
 	public void setXp2(int novoValor) {
 		this.xp2 = novoValor;
@@ -77,7 +81,7 @@ public abstract class Usuario {
 			throw new Exception();
 		}
 		setXp2(getXp2() + jogo.registraJogada(score, venceu));
-	}
+	}	
 
 	public Jogo buscaJogo(String nomeJogo) {
 		Jogo buscado = null;
