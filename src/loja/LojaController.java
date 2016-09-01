@@ -37,67 +37,46 @@ public class LojaController {
 		this.factoryUsuario = new FactoryUsuario();
 	}
 
-	public void adicionaUsuario(String nome, String login, String tipo) {
-		try {
-			Usuario novoUser = factoryUsuario.criaUsuario(nome, login, tipo);
-			meusUsuarios.add(novoUser);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 
+	// cria o usuario com a factory
+	public void adicionaUsuario(String nome, String login, String tipo) throws StringInvalidaException {
+		Usuario novoUser = factoryUsuario.criaUsuario(nome, login, tipo);
+		meusUsuarios.add(novoUser);
 	}
-	
-	public void vendeJogo(String jogoNome, double preco, String jogabilidades, String estiloJogo, String loginUser) {
 
-		try {
+	// feito a parte de venda de jogo.
+	public void vendeJogo(String jogoNome, double preco, String jogabilidades, String estiloJogo, String loginUser) throws StringInvalidaException, PrecoInvalidoException, ValorInvalidoException {
 			Usuario buscado = this.buscaUsuario(loginUser);
 			Set<Jogabilidade> tiposJogabilidades = this.createJogabilidades(jogabilidades);
 			Jogo jogoVendido = this.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
 			buscado.compraJogo(jogoVendido);
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 	}
 
-	public void registraJogada(String login, String nomeJogo, int score, boolean venceu) {
-		try {
+	//MUDAR ESTA EXCEPTION
+	public void registraJogada(String login, String nomeJogo, int score, boolean venceu) throws Exception {
 			Usuario usr = this.buscaUsuario(login);
 			usr.registradaJogada(nomeJogo, score, venceu);
-		} catch (Exception e) {
-			e.getMessage();
-		}
-
 	}
 
-	public void adicionaCredito(String login, double credito) {
-		try {
+	public void adicionaCredito(String login, double credito) throws ValorInvalidoException {
 			if (credito < 0) {
 				throw new ValorInvalidoException("Credito nao pode ser negativo");
 			}
 			Usuario user = this.buscaUsuario(login);
 			user.setCredito(user.getCredito() + credito);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 	}
 
 	public Usuario buscaUsuario(String login) {
 		Usuario buscado = null;
-
-		try {
 			for (int i = 0; i < meusUsuarios.size(); i++) {
 				if (meusUsuarios.get(i).getLogin().equals(login)) {
 					buscado = meusUsuarios.get(i);
 				}
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 		return buscado;
 	}
 
-	public void upgrade(String login) throws UpgradeInvalidoException {
+	public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
 		Usuario antigo = this.buscaUsuario(login);
 		if (antigo instanceof Veterano) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
@@ -114,13 +93,8 @@ public class LojaController {
 	}
 
 	public double confereCredito(String login) {
-		try {
-			Usuario procurado = this.buscaUsuario(login);
-			return procurado.getCredito();
-		} catch (Exception e) {
-			e.getMessage();
-		}
-		return 0;
+		Usuario procurado = this.buscaUsuario(login);
+		return procurado.getCredito();
 	}
 
 	public String informacaoUsuarios() {
@@ -135,11 +109,11 @@ public class LojaController {
 		Usuario buscado = this.buscaUsuario(login);
 		return buscado.getXp2();
 	}
-
-	private Jogo criaJogo(String jogoNome, double preco, Set<Jogabilidade> tiposJogabilidades, String estiloJogo)
-			throws StringInvalidaException, PrecoInvalidoException {
+	
+	// feito a parte de cria jogo com factory
+	private Jogo criaJogo(String jogoNome, double preco, Set<Jogabilidade> tiposJogabilidades, String estiloJogo) throws StringInvalidaException, PrecoInvalidoException {
 		String estilo = estiloJogo.toLowerCase();
-		return factoryJogo.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
+		return factoryJogo.criaJogo(jogoNome, preco, tiposJogabilidades, estilo);
 	}
 
 	private Set<Jogabilidade> createJogabilidades(String names1) {
@@ -153,9 +127,7 @@ public class LojaController {
 				Jogabilidade tipojogabilidade = mapJogabildades.get(element);
 				jogabilidades.add(tipojogabilidade);
 			}
-		}
-
-		
+		}		
 		return jogabilidades;
 
 	}

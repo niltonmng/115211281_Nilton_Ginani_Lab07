@@ -2,6 +2,7 @@ package usuario;
 
 import java.util.Iterator;
 
+import excecoes.PrecoInvalidoException;
 import excecoes.StringInvalidaException;
 import excecoes.ValorInvalidoException;
 import jogo.Jogo;
@@ -15,7 +16,7 @@ public class Noob extends Usuario {
 	}
 
 	@Override
-	public void compraJogo(Jogo jogo) throws Exception {
+	public void compraJogo(Jogo jogo) throws ValorInvalidoException {
 		double custo = jogo.getPreco() * DESCONTO_NOOB;
 		if (custo > this.getCredito()) {
 			throw new ValorInvalidoException("Credito insuficiente para realizar a compra.");

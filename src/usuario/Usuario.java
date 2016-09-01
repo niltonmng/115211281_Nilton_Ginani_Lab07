@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import excecoes.StringInvalidaException;
+import excecoes.ValorInvalidoException;
 import jogo.Jogo;
 
 public abstract class Usuario {
@@ -32,7 +33,7 @@ public abstract class Usuario {
 		this.credito = 0;
 	}
 
-	public abstract void compraJogo(Jogo jogo) throws Exception;
+	public abstract void compraJogo(Jogo jogo) throws ValorInvalidoException;
 
 	public void setXp2(int novoValor) {
 		this.xp2 = novoValor;

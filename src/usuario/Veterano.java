@@ -15,7 +15,7 @@ public class Veterano extends Usuario {
 	}
 
 	@Override
-	public void compraJogo(Jogo jogo) throws Exception {
+	public void compraJogo(Jogo jogo) throws ValorInvalidoException {
 		double custo = jogo.getPreco() * DESCONTO_VETERANO;
 		if (custo > this.getCredito()) {
 			throw new ValorInvalidoException("Credito insuficiente para realizar a compra.");

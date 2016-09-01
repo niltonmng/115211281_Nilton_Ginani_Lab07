@@ -1,0 +1,93 @@
+package loja;
+
+import java.util.Set;
+import jogo.Jogabilidade;
+import jogo.Jogo;
+import usuario.Usuario;
+import excecoes.StringInvalidaException;
+import excecoes.UpgradeInvalidoException;
+import excecoes.ValorInvalidoException;
+
+public class LojaFacade {
+
+	private LojaController lojaController;
+
+	public LojaFacade(){
+		this.lojaController = new LojaController();
+	}
+
+
+	public void adicionaUsuario(String nome, String login, String tipo) {
+		try {
+			this.lojaController.adicionaUsuario(nome, login, tipo);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	public void vendeJogo(String jogoNome, double preco, String jogabilidades, String estiloJogo, String loginUser) {
+		try {
+			this.lojaController.vendeJogo(jogoNome, preco, jogabilidades, estiloJogo, loginUser);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void registraJogada(String login, String nomeJogo, int score, boolean venceu) {
+		try {
+			this.lojaController.registraJogada(login, nomeJogo, score, venceu);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+	}
+
+	public void adicionaCredito(String login, double credito) {
+		try {
+			this.lojaController.adicionaCredito(login, credito);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public Usuario buscaUsuario(String login) {
+		try {
+			return this.lojaController.buscaUsuario(login);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+
+	public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
+		try {
+			this.lojaController.upgrade(login);				
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public double confereCredito(String login) {
+		try {
+			this.lojaController.confereCredito(login);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return 0;
+	}
+
+	public String informacaoUsuarios() {
+		return this.lojaController.informacaoUsuarios();				
+	}
+
+	public int getX2p(String login) {
+		try {
+			return this.lojaController.getX2p(login);				
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return 0;
+	}
+}
