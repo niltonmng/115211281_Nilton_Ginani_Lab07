@@ -46,33 +46,33 @@ public class LojaController {
 
 	// feito a parte de venda de jogo.
 	public void vendeJogo(String jogoNome, double preco, String jogabilidades, String estiloJogo, String loginUser) throws StringInvalidaException, PrecoInvalidoException, ValorInvalidoException {
-			Usuario buscado = this.buscaUsuario(loginUser);
-			Set<Jogabilidade> tiposJogabilidades = this.createJogabilidades(jogabilidades);
-			Jogo jogoVendido = this.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
-			buscado.compraJogo(jogoVendido);
+		Usuario buscado = this.buscaUsuario(loginUser);
+		Set<Jogabilidade> tiposJogabilidades = this.createJogabilidades(jogabilidades);
+		Jogo jogoVendido = this.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
+		buscado.compraJogo(jogoVendido);
 	}
 
 	//MUDAR ESTA EXCEPTION
 	public void registraJogada(String login, String nomeJogo, int score, boolean venceu) throws Exception {
-			Usuario usr = this.buscaUsuario(login);
-			usr.registradaJogada(nomeJogo, score, venceu);
+		Usuario usr = this.buscaUsuario(login);
+		usr.registradaJogada(nomeJogo, score, venceu);
 	}
 
 	public void adicionaCredito(String login, double credito) throws ValorInvalidoException {
-			if (credito < 0) {
-				throw new ValorInvalidoException("Credito nao pode ser negativo");
-			}
-			Usuario user = this.buscaUsuario(login);
-			user.setCredito(user.getCredito() + credito);
+		if (credito < 0) {
+			throw new ValorInvalidoException("Credito nao pode ser negativo");
+		}
+		Usuario user = this.buscaUsuario(login);
+		user.setCredito(user.getCredito() + credito);
 	}
 
 	public Usuario buscaUsuario(String login) {
 		Usuario buscado = null;
-			for (int i = 0; i < meusUsuarios.size(); i++) {
-				if (meusUsuarios.get(i).getLogin().equals(login)) {
-					buscado = meusUsuarios.get(i);
-				}
+		for (int i = 0; i < meusUsuarios.size(); i++) {
+			if (meusUsuarios.get(i).getLogin().equals(login)) {
+				buscado = meusUsuarios.get(i);
 			}
+		}
 		return buscado;
 	}
 
@@ -109,7 +109,7 @@ public class LojaController {
 		Usuario buscado = this.buscaUsuario(login);
 		return buscado.getXp2();
 	}
-	
+
 	// feito a parte de cria jogo com factory
 	private Jogo criaJogo(String jogoNome, double preco, Set<Jogabilidade> tiposJogabilidades, String estiloJogo) throws StringInvalidaException, PrecoInvalidoException {
 		String estilo = estiloJogo.toLowerCase();
