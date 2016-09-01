@@ -14,8 +14,10 @@ public abstract class Jogo {
 	private int vezesJogadas;
 	private int vezesConcluidas;
 	private int maiorScore;
-	Set<Jogabilidade> jogabilidades;
+	private Set<Jogabilidade> jogabilidades;
 
+	// os dois construtores existem para o caso de querer criar um jogo com jogabilidade ou um jogo sem jogabilidade.
+	// sem jogabilidade
 	public Jogo(String nome, double preco) throws StringInvalidaException, PrecoInvalidoException {
 
 		if (nome == null || nome.trim().isEmpty()) {
@@ -32,7 +34,7 @@ public abstract class Jogo {
 		this.maiorScore = 0;
 		jogabilidades = new HashSet<Jogabilidade>();
 	}
-
+	// com jogabilidade
 	public Jogo(String nome, double preco, Set<Jogabilidade> jogabilidades) throws StringInvalidaException, PrecoInvalidoException {
 
 		if (nome == null || nome.trim().isEmpty()) {
