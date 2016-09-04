@@ -32,7 +32,7 @@ public abstract class Jogo {
 		this.vezesConcluidas = 0;
 		this.vezesJogadas = 0;
 		this.maiorScore = 0;
-		jogabilidades = new HashSet<Jogabilidade>();
+		setJogabilidades(new HashSet<Jogabilidade>());
 	}
 	// com jogabilidade
 	public Jogo(String nome, double preco, Set<Jogabilidade> jogabilidades) throws StringInvalidaException, PrecoInvalidoException {
@@ -49,7 +49,7 @@ public abstract class Jogo {
 		this.vezesConcluidas = 0;
 		this.vezesJogadas = 0;
 		this.maiorScore = 0;
-		this.jogabilidades = jogabilidades;
+		this.setJogabilidades(jogabilidades);
 	}
 
 	public abstract int registraJogada(int score, boolean venceu);
@@ -105,5 +105,11 @@ public abstract class Jogo {
 			return false;
 		}
 
+	}
+	public Set<Jogabilidade> getJogabilidades() {
+		return jogabilidades;
+	}
+	public void setJogabilidades(Set<Jogabilidade> jogabilidades) {
+		this.jogabilidades = jogabilidades;
 	}
 }

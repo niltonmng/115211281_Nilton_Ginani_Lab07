@@ -39,23 +39,34 @@ public class LojaController {
 
 
 	// cria o usuario com a factory
-	public void adicionaUsuario(String nome, String login, String tipo) throws StringInvalidaException {
+	public void cadastroUsuario(String nome, String login, String tipo) throws StringInvalidaException {
 		Usuario novoUser = factoryUsuario.criaUsuario(nome, login, tipo);
 		meusUsuarios.add(novoUser);
 	}
 
 	// feito a parte de venda de jogo.
-	public void vendeJogo(String jogoNome, double preco, String jogabilidades, String estiloJogo, String loginUser) throws StringInvalidaException, PrecoInvalidoException, ValorInvalidoException {
+	public void vendeJogo(String jogoNome, double preco, String jogabilidades, String estiloJogo, String loginUser) 
+			throws StringInvalidaException, PrecoInvalidoException, ValorInvalidoException {
 		Usuario buscado = this.buscaUsuario(loginUser);
 		Set<Jogabilidade> tiposJogabilidades = this.createJogabilidades(jogabilidades);
 		Jogo jogoVendido = this.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
 		buscado.compraJogo(jogoVendido);
 	}
 
-	//MUDAR ESTA EXCEPTION
+	/*
 	public void registraJogada(String login, String nomeJogo, int score, boolean venceu) throws Exception {
 		Usuario usr = this.buscaUsuario(login);
 		usr.registradaJogada(nomeJogo, score, venceu);
+	}*/
+	
+	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou, String login) throws ValorInvalidoException, StringInvalidaException{
+		Usuario usr = this.buscaUsuario(login);
+		usr.recompensar(nomeJogo, scoreObtido, zerou);
+	}
+	
+	public void punir(String nomeJogo, int scoreObtido, boolean zerou,  String login) throws ValorInvalidoException, StringInvalidaException{
+		Usuario usr = this.buscaUsuario(login);
+		usr.punir(nomeJogo, scoreObtido, zerou);
 	}
 
 	public void adicionaCredito(String login, double credito) throws ValorInvalidoException {
@@ -111,7 +122,8 @@ public class LojaController {
 	}
 
 	// feito a parte de cria jogo com factory
-	private Jogo criaJogo(String jogoNome, double preco, Set<Jogabilidade> tiposJogabilidades, String estiloJogo) throws StringInvalidaException, PrecoInvalidoException {
+	private Jogo criaJogo(String jogoNome, double preco, Set<Jogabilidade> tiposJogabilidades, String estiloJogo) 
+			throws StringInvalidaException, PrecoInvalidoException {
 		String estilo = estiloJogo.toLowerCase();
 		return factoryJogo.criaJogo(jogoNome, preco, tiposJogabilidades, estilo);
 	}
@@ -145,7 +157,6 @@ public class LojaController {
 	public static void main(String[] args) {
 		args = new String[] { "loja.LojaController", "acceptance_test/us1.txt", "acceptance_test/us2.txt",  "acceptance_test/us3.txt" };
 		EasyAccept.main(args);
-
 	}
 
 }

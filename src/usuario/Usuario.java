@@ -4,9 +4,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import subclassesJogo.JogoLuta;
+import subclassesJogo.JogoPlataforma;
+import subclassesJogo.JogoRPG;
+
 import excecoes.StringInvalidaException;
 import excecoes.ValorInvalidoException;
-import jogo.Jogo;
+import jogo.*;
 
 public abstract class Usuario {
 
@@ -75,14 +79,15 @@ public abstract class Usuario {
 		return this.credito;
 	}
 
+	/* Reusei este codigo nas subclasses.
 	public void registradaJogada(String nomeJogo, int score, boolean venceu) throws Exception {
 		Jogo jogo = this.buscaJogo(nomeJogo);
 		if (jogo == null) {
 			throw new Exception();
 		}
 		setXp2(getXp2() + jogo.registraJogada(score, venceu));
-	}	
-
+	}*/	
+	
 	public Jogo buscaJogo(String nomeJogo) {
 		Jogo buscado = null;
 		Iterator itr = meusJogos.iterator();
@@ -121,5 +126,33 @@ public abstract class Usuario {
 		} else {
 			return false;
 		}
+	}
+	
+	public String toString(){
+		final String QUEBRA_LINHA = System.lineSeparator();
+		String tipoJogo = "";
+		String retorno = "";
+		double acumulaPreco = 0;
+		for(Jogo jogo : this.getMeusJogos()){
+			acumulaPreco += jogo.getPreco();
+			if(jogo instanceof Luta){
+				tipoJogo += "Luta";
+			}
+			else if(jogo instanceof Rpg){
+				tipoJogo += "RPG";
+			}
+			else if(jogo instanceof Plataforma){
+				tipoJogo += "Plataforma";
+			}
+			retorno +="+ " + jogo.getNome() + " - " + tipoJogo + ":" + QUEBRA_LINHA
+					+ "==> Jogou " + jogo.getVezesJogadas() + " vez(es)" + QUEBRA_LINHA
+					+ "==> Zerou " + jogo.getvezesConcluidas() + " vez(es)" + QUEBRA_LINHA
+					+ "==> Maior score: " + jogo.getMaiorScore() + QUEBRA_LINHA
+					+ QUEBRA_LINHA;
+			tipoJogo = "";
+		}
+		retorno += "Total de pre�o dos jogos: R$ " + acumulaPreco + QUEBRA_LINHA + QUEBRA_LINHA
+				+ "--------------------------------------------" + QUEBRA_LINHA + QUEBRA_LINHA;
+		return retorno;
 	}
 }

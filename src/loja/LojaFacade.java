@@ -17,9 +17,25 @@ public class LojaFacade {
 	}
 
 
-	public void adicionaUsuario(String nome, String login, String tipo) {
+	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou, String login) throws ValorInvalidoException, StringInvalidaException{
 		try {
-			this.lojaController.adicionaUsuario(nome, login, tipo);
+			this.lojaController.recompensar(nomeJogo, scoreObtido, zerou, login);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void punir(String nomeJogo, int scoreObtido, boolean zerou,  String login) throws ValorInvalidoException, StringInvalidaException{
+		try {
+			this.lojaController.punir(nomeJogo, scoreObtido, zerou, login);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void cadastroUsuario(String nome, String login, String tipo) {
+		try {
+			this.lojaController.cadastroUsuario(nome, login, tipo);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

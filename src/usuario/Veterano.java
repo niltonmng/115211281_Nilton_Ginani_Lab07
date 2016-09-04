@@ -2,6 +2,7 @@ package usuario;
 
 import java.util.Iterator;
 
+import enumerations.Jogabilidade;
 import excecoes.StringInvalidaException;
 import excecoes.ValorInvalidoException;
 import jogo.Jogo;
@@ -44,6 +45,52 @@ public class Veterano extends Usuario {
 		myString += "Total de pre�o dos jogos: R$ " + this.calculaPrecoTotal() + FIM_DE_LINHA;
 		myString += "--------------------------------------------";
 		return myString;
+	}
+
+	@Override
+	public void recompensar(String nomeJogo, int scoreObtido, boolean zerou)
+			throws ValorInvalidoException, StringInvalidaException {
+		if (nomeJogo == null || nomeJogo.trim().isEmpty()){
+			throw new StringInvalidaException("Nome do jogo nao pode ser vazio ou nulo.");
+		}
+		if(scoreObtido <= 0){
+			throw new ValorInvalidoException("A pontuacao nao pode ser menor ou igual a zero.");
+		}
+		
+		Jogo jogo = this.buscaJogo(nomeJogo);
+		this.setXp2(this.getXp2() + jogo.registraJogada(scoreObtido, zerou));
+		
+		int novoX2P = 0;
+		if(this.buscaJogo(nomeJogo).getJogabilidades().contains(Jogabilidade.ONLINE)){
+			novoX2P += 10;
+		}
+		if(this.buscaJogo(nomeJogo).getJogabilidades().contains(Jogabilidade.COOPERATIVO)){
+			novoX2P += 20;
+		}
+		this.setXp2(this.getXp2() + novoX2P);
+	}
+
+	@Override
+	public void punir(String nomeJogo, int scoreObtido, boolean zerou)
+			throws ValorInvalidoException, StringInvalidaException {
+		if (nomeJogo == null || nomeJogo.trim().isEmpty()){
+			throw new StringInvalidaException("Nome do jogo nao pode ser vazio ou nulo.");
+		}
+		if(scoreObtido <= 0){
+			throw new ValorInvalidoException("A pontuacao nao pode ser menor ou igual a zero.");
+		}
+		
+		Jogo jogo = this.buscaJogo(nomeJogo);
+		this.setXp2(this.getXp2() + jogo.registraJogada(scoreObtido, zerou));
+		
+		int novoX2P = 0;
+		if(this.buscaJogo(nomeJogo).getJogabilidades().contains(Jogabilidade.OFFLINE)){ // forma de elementos do tipo enum.
+			novoX2P += 20;
+		}
+		if(this.buscaJogo(nomeJogo).getJogabilidades().contains(Jogabilidade.COMPETITIVO)){
+			novoX2P += 20;
+		}
+		this.setXp2(this.getXp2() - novoX2P);
 	}
 
 }
