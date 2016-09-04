@@ -8,20 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 import easyaccept.EasyAccept;
-import excecoes.PrecoInvalidoException;
-import excecoes.StringInvalidaException;
-import excecoes.UpgradeInvalidoException;
-import excecoes.ValorInvalidoException;
-import jogo.FactoryJogo;
-import jogo.Jogabilidade;
-import jogo.Jogo;
-import jogo.Luta;
-import jogo.Plataforma;
-import jogo.Rpg;
-import usuario.FactoryUsuario;
-import usuario.Noob;
-import usuario.Usuario;
-import usuario.Veterano;
+import excecoes.*;
+import jogo.*;
+import usuario.*;
 
 public class LojaController {
 	public static final String FIM_DE_LINHA = System.lineSeparator();
@@ -51,6 +40,9 @@ public class LojaController {
 		Set<Jogabilidade> tiposJogabilidades = this.createJogabilidades(jogabilidades);
 		Jogo jogoVendido = this.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
 		buscado.compraJogo(jogoVendido);
+		
+		this.upgrade(loginUser); // PASSO 4, PARTE DE AUTOMATIZAR O DOWNGRADE E UPGRADE
+		this.downgrade(loginUser);
 	}
 
 	/*
@@ -62,11 +54,15 @@ public class LojaController {
 	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou, String login) throws ValorInvalidoException, StringInvalidaException{
 		Usuario usr = this.buscaUsuario(login);
 		usr.recompensar(nomeJogo, scoreObtido, zerou);
+		this.upgrade(login); // PASSO 4, PARTE DE AUTOMATIZAR O DOWNGRADE E UPGRADE
+		this.downgrade(login);
 	}
 	
 	public void punir(String nomeJogo, int scoreObtido, boolean zerou,  String login) throws ValorInvalidoException, StringInvalidaException{
 		Usuario usr = this.buscaUsuario(login);
 		usr.punir(nomeJogo, scoreObtido, zerou);
+		this.upgrade(login); // PASSO 4, PARTE DE AUTOMATIZAR O DOWNGRADE E UPGRADE
+		this.downgrade(login);
 	}
 
 	public void adicionaCredito(String login, double credito) throws ValorInvalidoException {
@@ -106,9 +102,9 @@ public class LojaController {
 	public void downgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
 		Usuario antigo = this.buscaUsuario(login);
 		if (antigo instanceof Noob) {
-			throw new UpgradeInvalidoException("Impossivel realizar downgrade, Usuario já é Noob!");
+			throw new DowngradeInvalidoException("Impossivel realizar downgrade, Usuario já é Noob!");
 		} else if (antigo.getXp2() > 1000) {
-			throw new UpgradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");
+			throw new DowngradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");
 		}
 		Usuario novo = new Noob(antigo.getNome(), antigo.getLogin());
 		novo.setCredito(antigo.getCredito());
