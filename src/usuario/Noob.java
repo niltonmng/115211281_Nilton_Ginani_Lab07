@@ -8,15 +8,16 @@ import excecoes.StringInvalidaException;
 import excecoes.ValorInvalidoException;
 import jogo.Jogo;
 
-public class Noob extends Usuario {
+public class Noob extends Usuario implements TipoDeUsuarioIF {
+	
 	public static final double DESCONTO_NOOB = 0.9;
 
 	public Noob(String nome, String login) throws StringInvalidaException {
 		super(nome, login);
 		setXp2(0);
 	}
-
-	@Override
+	
+	
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException {
 		double custo = jogo.getPreco() * DESCONTO_NOOB;
 		if (custo > this.getCredito()) {
@@ -49,7 +50,6 @@ public class Noob extends Usuario {
 		return myString;
 	}
 
-	@Override
 	public void recompensar(String nomeJogo, int scoreObtido, boolean zerou)
 			throws ValorInvalidoException, StringInvalidaException {
 		if (nomeJogo == null || nomeJogo.trim().isEmpty()){
@@ -72,7 +72,6 @@ public class Noob extends Usuario {
 		this.setXp2(this.getXp2() + novoX2P);
 	}
 
-	@Override
 	public void punir(String nomeJogo, int scoreObtido, boolean zerou)
 			throws ValorInvalidoException, StringInvalidaException {
 		if (nomeJogo == null || nomeJogo.trim().isEmpty()){

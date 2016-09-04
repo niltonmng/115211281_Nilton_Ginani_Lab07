@@ -90,11 +90,27 @@ public class LojaController {
 	public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
 		Usuario antigo = this.buscaUsuario(login);
 		if (antigo instanceof Veterano) {
-			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
-		} else if (antigo.getXp2() < 1000) {
+			throw new UpgradeInvalidoException("Impossivel realizar upgrade, Usuario já é Veterano!");
+		} else if (antigo.getXp2() < 1001) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
 		}
 		Usuario novo = new Veterano(antigo.getNome(), antigo.getLogin());
+		novo.setCredito(antigo.getCredito());
+		novo.setXp2(antigo.getXp2());
+		novo.setMeusJogos(antigo.getMeusJogos());
+		int index = meusUsuarios.indexOf(antigo);
+		meusUsuarios.set(index, novo);
+
+	}
+	
+	public void downgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
+		Usuario antigo = this.buscaUsuario(login);
+		if (antigo instanceof Noob) {
+			throw new UpgradeInvalidoException("Impossivel realizar downgrade, Usuario já é Noob!");
+		} else if (antigo.getXp2() > 1000) {
+			throw new UpgradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");
+		}
+		Usuario novo = new Noob(antigo.getNome(), antigo.getLogin());
 		novo.setCredito(antigo.getCredito());
 		novo.setXp2(antigo.getXp2());
 		novo.setMeusJogos(antigo.getMeusJogos());

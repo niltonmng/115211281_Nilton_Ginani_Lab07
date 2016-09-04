@@ -51,14 +51,13 @@ public class LojaFacade {
 		}
 	}
 
-	public void registraJogada(String login, String nomeJogo, int score, boolean venceu) {
+	/*public void registraJogada(String login, String nomeJogo, int score, boolean venceu) {
 		try {
 			this.lojaController.registraJogada(login, nomeJogo, score, venceu);
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
-	}
+	}*/
 
 	public void adicionaCredito(String login, double credito) {
 		try {

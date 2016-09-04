@@ -21,6 +21,7 @@ public abstract class Usuario {
 	private Set<Jogo> meusJogos;
 	private double credito;
 	private int xp2;
+	private TipoDeUsuarioIF statusDoUsuario;
 
 	public Usuario(String nome, String login) throws StringInvalidaException {
 
@@ -33,16 +34,25 @@ public abstract class Usuario {
 
 		this.nome = nome;
 		this.login = login;
-		meusJogos = new HashSet<Jogo>();
+		this.meusJogos = new HashSet<Jogo>();
 		this.credito = 0;
 	}
-
-	public abstract void compraJogo(Jogo jogo) throws ValorInvalidoException;
 	
-	public abstract void recompensar(String nomeJogo,int scoreObtido,boolean zerou) throws ValorInvalidoException, StringInvalidaException;
+	//========================= Passo 4 ========================================== metodos que delegam a partir da interface.
 	
-	public abstract void punir(String nomeJogo, int scoreObtido, boolean zerou) throws ValorInvalidoException, StringInvalidaException;
+	public void compraJogo(Jogo jogo) throws ValorInvalidoException{
+		this.statusDoUsuario.compraJogo(jogo);
+	}
+	
+	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou) throws ValorInvalidoException, StringInvalidaException{
+		this.statusDoUsuario.recompensar(nomeJogo, scoreObtido, zerou);
+	}
+	public void punir(String nomeJogo, int scoreObtido, boolean zerou) throws ValorInvalidoException, StringInvalidaException{
+		this.statusDoUsuario.punir(nomeJogo, scoreObtido, zerou);
+	}
 
+	//========================= Fim Passo 4 =======================================
+	
 	public void setXp2(int novoValor) {
 		this.xp2 = novoValor;
 	}
