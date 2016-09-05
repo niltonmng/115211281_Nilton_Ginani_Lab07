@@ -38,30 +38,27 @@ public abstract class Usuario {
 		this.login = login;
 		this.meusJogos = new HashSet<Jogo>();
 		this.credito = 0;
-		this.statusDoUsuario = new Noob(nome, login);
+		this.statusDoUsuario = new Noob(); // nao sei se isto necessariamente é desta forma
 	}
-	
-	
-	public Usuario(){}
 	
 	//========================= Passo 4 ========================================== metodos que delegam a partir da interface.
 	// serve para poder fazer a troca dinamica entre os dois tipos de usuario (noob e veterano), sem que seja necessario armazenar as informaçoes
 	// para ter que instanciar um ou o outro.
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException{
-		this.statusDoUsuario.compraJogo(jogo);
+		this.statusDoUsuario.compraJogo(jogo); // chamada polimorfica
 	}
 	
 	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou) throws ValorInvalidoException, StringInvalidaException{
-		this.statusDoUsuario.recompensar(nomeJogo, scoreObtido, zerou);
+		this.statusDoUsuario.recompensar(nomeJogo, scoreObtido, zerou); // chamada polimorfica
 	}
 	public void punir(String nomeJogo, int scoreObtido, boolean zerou) throws ValorInvalidoException, StringInvalidaException{
-		this.statusDoUsuario.punir(nomeJogo, scoreObtido, zerou);
+		this.statusDoUsuario.punir(nomeJogo, scoreObtido, zerou); // chamada polimorfica
 	}
 	
 	
 	public void upgrade() throws UpgradeInvalidoException, StringInvalidaException{ // DUVIDAS SE ESTA É A MANEIRA CERTA DE FAZER O DOWNGRADE E UPGRADE.
 																					// MAS ACHO QUE ESTA É A FORMA CORRETA
-		if (this.getClass() == Veterano.class) {
+		if (this.getStatusDoUsuario().getClass() == Veterano.class) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, Usuario já é Veterano!");
 		} else if (this.getXp2() < 1001) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
@@ -73,7 +70,7 @@ public abstract class Usuario {
 	
 	public void downgrade() throws UpgradeInvalidoException, StringInvalidaException, DowngradeInvalidoException {
 
-		if (this.getClass() == Noob.class) {
+		if (this.getStatusDoUsuario().getClass() == Noob.class) {
 			throw new DowngradeInvalidoException("Impossivel realizar downgrade, Usuario já é Noob!");
 		} else if (this.getXp2() > 1000) {
 			throw new DowngradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");

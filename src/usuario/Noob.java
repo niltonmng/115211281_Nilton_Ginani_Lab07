@@ -8,16 +8,14 @@ import excecoes.StringInvalidaException;
 import excecoes.ValorInvalidoException;
 import jogo.Jogo;
 
-public class Noob extends Usuario implements TipoDeUsuarioIF {
+public class Noob implements TipoDeUsuarioIF {
 	
 	public static final double DESCONTO_NOOB = 0.9;
 
-	public Noob(String nome, String login) throws StringInvalidaException {
+	/*public Noob(String nome, String login) throws StringInvalidaException {
 		super(nome, login);
 		setXp2(0);
-	}
-	
-	public Noob(){}
+	}*/
 	
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException {
 		double custo = jogo.getPreco() * DESCONTO_NOOB;
@@ -32,23 +30,6 @@ public class Noob extends Usuario implements TipoDeUsuarioIF {
 
 		}
 
-	}
-
-	@Override
-	public String toString() {
-		String myString = this.getLogin() + FIM_DE_LINHA;
-		myString += this.getNome() + " - Jogador Noob" + FIM_DE_LINHA;
-		myString += "Lista de Jogos:" + FIM_DE_LINHA;
-
-		Iterator itr = getMeusJogos().iterator();
-		while (itr.hasNext()) {
-			Jogo j = (Jogo) itr.next();
-			myString += j.toString();
-		}
-		myString += FIM_DE_LINHA;
-		myString += "Total de pre�o dos jogos: R$ " + this.calculaPrecoTotal() + FIM_DE_LINHA;
-		myString += "--------------------------------------------";
-		return myString;
 	}
 
 	public void recompensar(String nomeJogo, int scoreObtido, boolean zerou)
@@ -96,6 +77,23 @@ public class Noob extends Usuario implements TipoDeUsuarioIF {
 			novoX2P += 50;
 		}
 		this.setXp2(this.getXp2() - novoX2P);
+	}
+	
+	@Override
+	public String toString() {
+		String myString = this.getLogin() + FIM_DE_LINHA;
+		myString += this.getNome() + " - Jogador Noob" + FIM_DE_LINHA;
+		myString += "Lista de Jogos:" + FIM_DE_LINHA;
+
+		Iterator itr = getMeusJogos().iterator();
+		while (itr.hasNext()) {
+			Jogo j = (Jogo) itr.next();
+			myString += j.toString();
+		}
+		myString += FIM_DE_LINHA;
+		myString += "Total de pre�o dos jogos: R$ " + this.calculaPrecoTotal() + FIM_DE_LINHA;
+		myString += "--------------------------------------------";
+		return myString;
 	}
 
 }
