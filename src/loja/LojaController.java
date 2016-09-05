@@ -86,28 +86,6 @@ public class LojaController {
 		usr.downgrade();
 	}
 	
-	/*public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException{
-		Usuario antigo = this.buscaUsuario(login);
-		if (antigo.getClass() == Veterano.class) {
-			throw new UpgradeInvalidoException("Impossivel realizar upgrade, Usuario já é Veterano!");
-		} else if (antigo.getXp2() < 1001) {
-			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
-		}
-		
-		antigo = new Veterano(antigo.getNome(), antigo.getLogin());
-		
-	}
-	
-	public void downgrade(String login) throws StringInvalidaException, DowngradeInvalidoException {
-		Usuario antigo = this.buscaUsuario(login);
-		if (antigo.getClass() == Noob.class) {
-			throw new DowngradeInvalidoException("Impossivel realizar downgrade, Usuario já é Noob!");
-		} else if (antigo.getXp2() > 1000) {
-			throw new DowngradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");
-		}
-		
-		antigo = new Noob(antigo.getNome(), antigo.getLogin());
-	}*/
 
 	/*public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException { FORMA QUE ESTA FUNCIONANDO DE CERTEZA
 		Usuario antigo = this.buscaUsuario(login);

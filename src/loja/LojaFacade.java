@@ -4,6 +4,7 @@ import java.util.Set;
 import jogo.Jogabilidade;
 import jogo.Jogo;
 import usuario.Usuario;
+import excecoes.DowngradeInvalidoException;
 import excecoes.StringInvalidaException;
 import excecoes.UpgradeInvalidoException;
 import excecoes.ValorInvalidoException;
@@ -79,6 +80,14 @@ public class LojaFacade {
 	public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
 		try {
 			this.lojaController.upgrade(login);				
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void downgrade(String login) throws DowngradeInvalidoException, StringInvalidaException {
+		try {
+			this.lojaController.downgrade(login);				
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
