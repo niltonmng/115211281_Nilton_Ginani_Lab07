@@ -44,6 +44,7 @@ public abstract class Usuario {
 	//========================= Passo 4 ========================================== metodos que delegam a partir da interface.
 	// serve para poder fazer a troca dinamica entre os dois tipos de usuario (noob e veterano), sem que seja necessario armazenar as informaçoes
 	// para ter que instanciar um ou o outro.
+	
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException{
 		this.statusDoUsuario.compraJogo(jogo); // chamada polimorfica
 	}
@@ -51,10 +52,10 @@ public abstract class Usuario {
 	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou) throws ValorInvalidoException, StringInvalidaException{
 		this.statusDoUsuario.recompensar(nomeJogo, scoreObtido, zerou); // chamada polimorfica
 	}
+	
 	public void punir(String nomeJogo, int scoreObtido, boolean zerou) throws ValorInvalidoException, StringInvalidaException{
 		this.statusDoUsuario.punir(nomeJogo, scoreObtido, zerou); // chamada polimorfica
 	}
-	
 	
 	public void upgrade() throws UpgradeInvalidoException, StringInvalidaException{ // DUVIDAS SE ESTA É A MANEIRA CERTA DE FAZER O DOWNGRADE E UPGRADE.
 																					// MAS ACHO QUE ESTA É A FORMA CORRETA
@@ -64,7 +65,6 @@ public abstract class Usuario {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
 		}
 		
-		//this.statusDoUsuario = new Veterano(this.getNome(), this.getLogin());
 		this.statusDoUsuario = new Veterano();
 	}
 	
@@ -76,7 +76,6 @@ public abstract class Usuario {
 			throw new DowngradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");
 		}
 		
-		//this.statusDoUsuario = new Noob(this.getNome(), this.getLogin());
 		this.statusDoUsuario = new Noob();
 	}
 
