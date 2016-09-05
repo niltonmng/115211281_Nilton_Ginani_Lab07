@@ -16,6 +16,8 @@ public class Veterano extends Usuario implements TipoDeUsuarioIF {
 		setXp2(1000);
 	}
 
+	public Veterano(){}
+	
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException {
 		double custo = jogo.getPreco() * DESCONTO_VETERANO;
 		if (custo > this.getCredito()) {

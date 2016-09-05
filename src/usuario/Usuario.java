@@ -8,7 +8,9 @@ import subclassesJogo.JogoLuta;
 import subclassesJogo.JogoPlataforma;
 import subclassesJogo.JogoRPG;
 
+import excecoes.DowngradeInvalidoException;
 import excecoes.StringInvalidaException;
+import excecoes.UpgradeInvalidoException;
 import excecoes.ValorInvalidoException;
 import jogo.*;
 
@@ -36,10 +38,15 @@ public abstract class Usuario {
 		this.login = login;
 		this.meusJogos = new HashSet<Jogo>();
 		this.credito = 0;
+		this.statusDoUsuario = new Noob(nome, login);
 	}
 	
-	//========================= Passo 4 ========================================== metodos que delegam a partir da interface.
 	
+	public Usuario(){}
+	
+	//========================= Passo 4 ========================================== metodos que delegam a partir da interface.
+	// serve para poder fazer a troca dinamica entre os dois tipos de usuario (noob e veterano), sem que seja necessario armazenar as informaçoes
+	// para ter que instanciar um ou o outro.
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException{
 		this.statusDoUsuario.compraJogo(jogo);
 	}
@@ -49,6 +56,31 @@ public abstract class Usuario {
 	}
 	public void punir(String nomeJogo, int scoreObtido, boolean zerou) throws ValorInvalidoException, StringInvalidaException{
 		this.statusDoUsuario.punir(nomeJogo, scoreObtido, zerou);
+	}
+	
+	
+	public void upgrade() throws UpgradeInvalidoException, StringInvalidaException{ // DUVIDAS SE ESTA É A MANEIRA CERTA DE FAZER O DOWNGRADE E UPGRADE.
+																					// MAS ACHO QUE ESTA É A FORMA CORRETA
+		if (this.getClass() == Veterano.class) {
+			throw new UpgradeInvalidoException("Impossivel realizar upgrade, Usuario já é Veterano!");
+		} else if (this.getXp2() < 1001) {
+			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
+		}
+		
+		//this.statusDoUsuario = new Veterano(this.getNome(), this.getLogin());
+		this.statusDoUsuario = new Veterano();
+	}
+	
+	public void downgrade() throws UpgradeInvalidoException, StringInvalidaException, DowngradeInvalidoException {
+
+		if (this.getClass() == Noob.class) {
+			throw new DowngradeInvalidoException("Impossivel realizar downgrade, Usuario já é Noob!");
+		} else if (this.getXp2() > 1000) {
+			throw new DowngradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");
+		}
+		
+		//this.statusDoUsuario = new Noob(this.getNome(), this.getLogin());
+		this.statusDoUsuario = new Noob();
 	}
 
 	//========================= Fim Passo 4 =======================================
@@ -88,9 +120,17 @@ public abstract class Usuario {
 	public double getCredito() {
 		return this.credito;
 	}
+	
+	public TipoDeUsuarioIF getStatusDoUsuario() {
+		return statusDoUsuario;
+	}
 
-	/* Reusei este codigo nas subclasses.
-	public void registradaJogada(String nomeJogo, int score, boolean venceu) throws Exception {
+	public void setStatusDoUsuario(TipoDeUsuarioIF statusDoUsuario) {
+		this.statusDoUsuario = statusDoUsuario;
+	}
+
+	
+	/*public void registradaJogada(String nomeJogo, int score, boolean venceu) throws Exception {  //  Reusei este codigo nas subclasses.
 		Jogo jogo = this.buscaJogo(nomeJogo);
 		if (jogo == null) {
 			throw new Exception();

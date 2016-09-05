@@ -17,6 +17,7 @@ public class Noob extends Usuario implements TipoDeUsuarioIF {
 		setXp2(0);
 	}
 	
+	public Noob(){}
 	
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException {
 		double custo = jogo.getPreco() * DESCONTO_NOOB;

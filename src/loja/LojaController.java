@@ -40,9 +40,6 @@ public class LojaController {
 		Set<Jogabilidade> tiposJogabilidades = this.createJogabilidades(jogabilidades);
 		Jogo jogoVendido = this.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
 		buscado.compraJogo(jogoVendido);
-		
-		this.upgrade(loginUser); // PASSO 4, PARTE DE AUTOMATIZAR O DOWNGRADE E UPGRADE
-		this.downgrade(loginUser);
 	}
 
 	/*
@@ -54,15 +51,11 @@ public class LojaController {
 	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou, String login) throws ValorInvalidoException, StringInvalidaException{
 		Usuario usr = this.buscaUsuario(login);
 		usr.recompensar(nomeJogo, scoreObtido, zerou);
-		this.upgrade(login); // PASSO 4, PARTE DE AUTOMATIZAR O DOWNGRADE E UPGRADE
-		this.downgrade(login);
 	}
 	
 	public void punir(String nomeJogo, int scoreObtido, boolean zerou,  String login) throws ValorInvalidoException, StringInvalidaException{
 		Usuario usr = this.buscaUsuario(login);
 		usr.punir(nomeJogo, scoreObtido, zerou);
-		this.upgrade(login); // PASSO 4, PARTE DE AUTOMATIZAR O DOWNGRADE E UPGRADE
-		this.downgrade(login);
 	}
 
 	public void adicionaCredito(String login, double credito) throws ValorInvalidoException {
@@ -82,8 +75,41 @@ public class LojaController {
 		}
 		return buscado;
 	}
+	
+	public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException{
+		Usuario usr = this.buscaUsuario(login);
+		usr.upgrade();
+	}
+	
+	public void downgrade(String login) throws UpgradeInvalidoException, StringInvalidaException{
+		Usuario usr = this.buscaUsuario(login);
+		usr.downgrade();
+	}
+	
+	/*public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException{
+		Usuario antigo = this.buscaUsuario(login);
+		if (antigo.getClass() == Veterano.class) {
+			throw new UpgradeInvalidoException("Impossivel realizar upgrade, Usuario já é Veterano!");
+		} else if (antigo.getXp2() < 1001) {
+			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
+		}
+		
+		antigo = new Veterano(antigo.getNome(), antigo.getLogin());
+		
+	}
+	
+	public void downgrade(String login) throws StringInvalidaException, DowngradeInvalidoException {
+		Usuario antigo = this.buscaUsuario(login);
+		if (antigo.getClass() == Noob.class) {
+			throw new DowngradeInvalidoException("Impossivel realizar downgrade, Usuario já é Noob!");
+		} else if (antigo.getXp2() > 1000) {
+			throw new DowngradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");
+		}
+		
+		antigo = new Noob(antigo.getNome(), antigo.getLogin());
+	}*/
 
-	public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
+	/*public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException { FORMA QUE ESTA FUNCIONANDO DE CERTEZA
 		Usuario antigo = this.buscaUsuario(login);
 		if (antigo instanceof Veterano) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, Usuario já é Veterano!");
@@ -99,7 +125,7 @@ public class LojaController {
 
 	}
 	
-	public void downgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
+	public void downgrade(String login) throws DowngradeInvalidoException, StringInvalidaException {
 		Usuario antigo = this.buscaUsuario(login);
 		if (antigo instanceof Noob) {
 			throw new DowngradeInvalidoException("Impossivel realizar downgrade, Usuario já é Noob!");
@@ -113,7 +139,7 @@ public class LojaController {
 		int index = meusUsuarios.indexOf(antigo);
 		meusUsuarios.set(index, novo);
 
-	}
+	}*/
 
 	public double confereCredito(String login) {
 		Usuario procurado = this.buscaUsuario(login);
@@ -170,5 +196,4 @@ public class LojaController {
 		args = new String[] { "loja.LojaController", "acceptance_test/us1.txt", "acceptance_test/us2.txt",  "acceptance_test/us3.txt" };
 		EasyAccept.main(args);
 	}
-
 }
