@@ -46,15 +46,38 @@ public abstract class Usuario {
 	// para ter que instanciar um ou o outro.
 	
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException{
-		this.statusDoUsuario.compraJogo(jogo); // chamada polimorfica
+		if (this.getStatusDoUsuario().compraJogo(jogo) > this.getCredito()) {
+			throw new ValorInvalidoException("Credito insuficiente para realizar a compra.");
+		}
+		int parteInteira =(int)( jogo.getPreco() - (jogo.getPreco() % 1));
+		int bonusXp =  parteInteira * 10;
+		this.setXp2(this.getXp2() + bonusXp);
+		this.setCredito(this.getCredito() - this.getStatusDoUsuario().compraJogo(jogo));  // chamada polimorfica
+		this.cadastraJogo(jogo);
 	}
 	
 	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou) throws ValorInvalidoException, StringInvalidaException{
-		this.statusDoUsuario.recompensar(nomeJogo, scoreObtido, zerou); // chamada polimorfica
+		if (nomeJogo == null || nomeJogo.trim().isEmpty()){
+			throw new StringInvalidaException("Nome do jogo nao pode ser vazio ou nulo.");
+		}
+		if(scoreObtido <= 0){
+			throw new ValorInvalidoException("A pontuacao nao pode ser menor ou igual a zero.");
+		}
+		Jogo jogo = this.buscaJogo(nomeJogo);
+		this.setXp2(this.getXp2() + jogo.registraJogada(scoreObtido, zerou));
+		this.setXp2(this.getXp2() + this.getStatusDoUsuario().recompensar(jogo)); // chamada polimorfica
 	}
 	
 	public void punir(String nomeJogo, int scoreObtido, boolean zerou) throws ValorInvalidoException, StringInvalidaException{
-		this.statusDoUsuario.punir(nomeJogo, scoreObtido, zerou); // chamada polimorfica
+		if (nomeJogo == null || nomeJogo.trim().isEmpty()){
+			throw new StringInvalidaException("Nome do jogo nao pode ser vazio ou nulo.");
+		}
+		if(scoreObtido <= 0){
+			throw new ValorInvalidoException("A pontuacao nao pode ser menor ou igual a zero.");
+		}
+		Jogo jogo = this.buscaJogo(nomeJogo);
+		this.setXp2(this.getXp2() + jogo.registraJogada(scoreObtido, zerou));
+		this.setXp2(this.getXp2() - this.getStatusDoUsuario().punir(jogo)); // chamada polimorfica
 	}
 	
 	public void upgrade() throws UpgradeInvalidoException, StringInvalidaException{ // DUVIDAS SE ESTA É A MANEIRA CERTA DE FAZER O DOWNGRADE E UPGRADE.

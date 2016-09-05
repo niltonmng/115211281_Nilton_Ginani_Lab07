@@ -12,10 +12,41 @@ public class Noob implements TipoDeUsuarioIF {
 	
 	public static final double DESCONTO_NOOB = 0.9;
 
+	public double compraJogo(Jogo jogo){
+		double custo = jogo.getPreco() * DESCONTO_NOOB;
+		return custo;
+	}
+
+	public int recompensar(Jogo jogo){
+		int novoX2P = 0;
+		if(jogo.getJogabilidades().contains(Jogabilidade.OFFLINE)){
+			novoX2P += 30;
+		}
+		if(jogo.getJogabilidades().contains(Jogabilidade.MULTIPLAYER)){
+			novoX2P += 10;
+		}
+		return novoX2P;
+	}
+
+	public int punir(Jogo jogo) {	
+		int novoX2P = 0;
+		if(jogo.getJogabilidades().contains(Jogabilidade.ONLINE)){ // forma de elementos do tipo enum.
+			novoX2P += 10;
+		}
+		if(jogo.getJogabilidades().contains(Jogabilidade.COMPETITIVO)){
+			novoX2P += 20;
+		}
+		if(jogo.getJogabilidades().contains(Jogabilidade.COOPERATIVO)){
+			novoX2P += 50;
+		}
+		return novoX2P;
+	}
+	
+	
 	/*public Noob(String nome, String login) throws StringInvalidaException {
 		super(nome, login);
 		setXp2(0);
-	}*/
+	}
 	
 	public void compraJogo(Jogo jogo) throws ValorInvalidoException {
 		double custo = jogo.getPreco() * DESCONTO_NOOB;
@@ -94,6 +125,6 @@ public class Noob implements TipoDeUsuarioIF {
 		myString += "Total de pre�o dos jogos: R$ " + this.calculaPrecoTotal() + FIM_DE_LINHA;
 		myString += "--------------------------------------------";
 		return myString;
-	}
+	}*/
 
 }
