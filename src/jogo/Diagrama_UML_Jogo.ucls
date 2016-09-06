@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="jogo.Luta" project="Laboratory6" file="/Laboratory6/src/jogo/Luta.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="jogo.Luta" project="115211281_Nilton_Ginani_Lab07" 
+    file="/115211281_Nilton_Ginani_Lab07/src/jogo/Luta.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1103" y="739"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="jogo.Plataforma" project="Laboratory6" 
-    file="/Laboratory6/src/jogo/Plataforma.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="jogo.Plataforma" project="115211281_Nilton_Ginani_Lab07" 
+    file="/115211281_Nilton_Ginani_Lab07/src/jogo/Plataforma.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1117" y="553"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="3" language="java" name="jogo.Jogabilidade" project="Laboratory6" 
-    file="/Laboratory6/src/jogo/Jogabilidade.java" binary="false" corner="BOTTOM_RIGHT">    
+  <enumeration id="3" language="java" name="jogo.Jogabilidade" project="115211281_Nilton_Ginani_Lab07" 
+    file="/115211281_Nilton_Ginani_Lab07/src/jogo/Jogabilidade.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1106" y="146"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="4" language="java" name="jogo.Jogo" project="Laboratory6" file="/Laboratory6/src/jogo/Jogo.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="jogo.Jogo" project="115211281_Nilton_Ginani_Lab07" 
+    file="/115211281_Nilton_Ginani_Lab07/src/jogo/Jogo.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="548" y="507"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -37,8 +37,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="jogo.Rpg" project="Laboratory6" file="/Laboratory6/src/jogo/Rpg.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="jogo.Rpg" project="115211281_Nilton_Ginani_Lab07" 
+    file="/115211281_Nilton_Ginani_Lab07/src/jogo/Rpg.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1115" y="369"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="jogo.FactoryJogo" project="Laboratory6" 
-    file="/Laboratory6/src/jogo/FactoryJogo.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="jogo.FactoryJogo" project="115211281_Nilton_Ginani_Lab07" 
+    file="/115211281_Nilton_Ginani_Lab07/src/jogo/FactoryJogo.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="556" y="143"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,45 +55,49 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="7">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
+  <dependency id="7">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
   <generalization id="8">    
-    <end type="SOURCE" refId="1"/>    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
   <dependency id="9">    
     <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="TARGET" refId="3"/>  
   </dependency>  
-  <association id="10">    
+  <generalization id="10">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="12">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="11" name="jogabilidades"/>      
-      <multiplicity id="12" minimum="0" maximum="2147483647"/>    
+      <attribute id="13" name="jogabilidades">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="14" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="13">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <dependency id="14">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
   <dependency id="15">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
   <dependency id="16">    
     <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="17">    
     <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="TARGET" refId="5"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

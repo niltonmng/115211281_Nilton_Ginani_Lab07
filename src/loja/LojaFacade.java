@@ -34,9 +34,9 @@ public class LojaFacade {
 		}
 	}
 	
-	public void cadastroUsuario(String nome, String login, String tipo) {
+	public void cadastroUsuario(String nome, String login) {
 		try {
-			this.lojaController.cadastroUsuario(nome, login, tipo);
+			this.lojaController.cadastroUsuario(nome, login);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
