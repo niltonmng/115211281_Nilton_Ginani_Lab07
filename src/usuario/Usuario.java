@@ -14,7 +14,7 @@ import excecoes.UpgradeInvalidoException;
 import excecoes.ValorInvalidoException;
 import jogo.*;
 
-public abstract class Usuario {
+public class Usuario {
 
 	public static final String FIM_DE_LINHA = System.lineSeparator();
 
@@ -38,7 +38,7 @@ public abstract class Usuario {
 		this.login = login;
 		this.meusJogos = new HashSet<Jogo>();
 		this.credito = 0;
-		this.statusDoUsuario = new Noob(); // nao sei se isto necessariamente é desta forma
+		this.statusDoUsuario = new Noob(); // iniciei o status sempre como noob.
 	}
 	
 	//========================= Passo 4 ========================================== metodos que delegam a partir da interface.
@@ -80,15 +80,15 @@ public abstract class Usuario {
 		this.setXp2(this.getXp2() - this.getStatusDoUsuario().punir(jogo)); // chamada polimorfica
 	}
 	
-	public void upgrade() throws UpgradeInvalidoException, StringInvalidaException{ // DUVIDAS SE ESTA É A MANEIRA CERTA DE FAZER O DOWNGRADE E UPGRADE.
-																					// MAS ACHO QUE ESTA É A FORMA CORRETA
+	public void upgrade() throws UpgradeInvalidoException, StringInvalidaException{
+																					
 		if (this.getStatusDoUsuario().getClass() == Veterano.class) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, Usuario já é Veterano!");
 		} else if (this.getXp2() < 1001) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, quantidade de x2p insuficiente!");
 		}
 		
-		this.statusDoUsuario = new Veterano();
+		this.statusDoUsuario = new Veterano();  // strategy
 	}
 	
 	public void downgrade() throws UpgradeInvalidoException, StringInvalidaException, DowngradeInvalidoException {
@@ -99,7 +99,7 @@ public abstract class Usuario {
 			throw new DowngradeInvalidoException("Impossivel realizar downgrade, quantidade de x2p insuficiente!");
 		}
 		
-		this.statusDoUsuario = new Noob();
+		this.statusDoUsuario = new Noob(); // strategy
 	}
 
 	//========================= Fim Passo 4 =======================================

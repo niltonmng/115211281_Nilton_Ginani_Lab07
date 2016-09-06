@@ -10,27 +10,29 @@ import java.util.Set;
 import easyaccept.EasyAccept;
 import excecoes.*;
 import jogo.*;
-import usuario.*;
+import usuario.Usuario;
 
 public class LojaController {
+	
 	public static final String FIM_DE_LINHA = System.lineSeparator();
 	private List<Usuario> meusUsuarios;
 	private HashMap<String, Jogabilidade> mapJogabildades;
 	private FactoryJogo factoryJogo;
-	private FactoryUsuario factoryUsuario;
+	//private FactoryUsuario factoryUsuario;
 
 	public LojaController() {
 		this.meusUsuarios = new ArrayList<Usuario>();
 		this.initializeMap();
 		this.factoryJogo = new FactoryJogo();
-		this.factoryUsuario = new FactoryUsuario();
+		//this.factoryUsuario = new FactoryUsuario();
 	}
 
 
-	// cria o usuario com a factory
-	public void cadastroUsuario(String nome, String login, String tipo) throws StringInvalidaException {
-		Usuario novoUser = factoryUsuario.criaUsuario(nome, login, tipo);
-		meusUsuarios.add(novoUser);
+	// nao necessia criar o usuario com a factory, pois o que muda é seu status, e nao um usuario de tipo diferente.
+	public void cadastroUsuario(String nome, String login /*, String tipo*/ ) throws StringInvalidaException {
+		//Usuario novoUser = this.factoryUsuario.criaUsuario(nome, login, tipo);
+		Usuario novoUser = new Usuario(nome, login);
+		this.meusUsuarios.add(novoUser);
 	}
 
 	// feito a parte de venda de jogo.
@@ -41,12 +43,6 @@ public class LojaController {
 		Jogo jogoVendido = this.criaJogo(jogoNome, preco, tiposJogabilidades, estiloJogo);
 		buscado.compraJogo(jogoVendido);
 	}
-
-	/*
-	public void registraJogada(String login, String nomeJogo, int score, boolean venceu) throws Exception {
-		Usuario usr = this.buscaUsuario(login);
-		usr.registradaJogada(nomeJogo, score, venceu);
-	}*/
 	
 	public void recompensar(String nomeJogo,int scoreObtido,boolean zerou, String login) throws ValorInvalidoException, StringInvalidaException{
 		Usuario usr = this.buscaUsuario(login);
@@ -87,7 +83,7 @@ public class LojaController {
 	}
 	
 
-	/*public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException { FORMA QUE ESTA FUNCIONANDO DE CERTEZA
+	/*public void upgrade(String login) throws UpgradeInvalidoException, StringInvalidaException {
 		Usuario antigo = this.buscaUsuario(login);
 		if (antigo instanceof Veterano) {
 			throw new UpgradeInvalidoException("Impossivel realizar upgrade, Usuario já é Veterano!");
@@ -141,7 +137,7 @@ public class LojaController {
 	private Jogo criaJogo(String jogoNome, double preco, Set<Jogabilidade> tiposJogabilidades, String estiloJogo) 
 			throws StringInvalidaException, PrecoInvalidoException {
 		String estilo = estiloJogo.toLowerCase();
-		return factoryJogo.criaJogo(jogoNome, preco, tiposJogabilidades, estilo);
+		return this.factoryJogo.criaJogo(jogoNome, preco, tiposJogabilidades, estilo);
 	}
 
 	private Set<Jogabilidade> createJogabilidades(String names1) { // METODO QUE RECEBE UMA STRING DE JOGABILIDADE E RETORNA UMA LISTA COM AS JOGABILIDADES DO JOGO.
